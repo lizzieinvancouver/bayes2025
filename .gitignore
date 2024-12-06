@@ -1,0 +1,12 @@
+*.RData
+*.DS_Store
+*.DS_store
+*.Rapp.history
+*.Rhistory
+
+*.docx
+*.key
+*.ppt
+*.pptx
+
+/notposting

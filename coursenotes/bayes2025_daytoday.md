@@ -1,12 +1,24 @@
 # Day to day ....
 
+## Need to cover ...
+- Counterfactuals
+- Don't use bar charts
+- Many types of Bayesians (examples of Gelman vs. wildlife folks, versus DAG lovers etc.)
+
+## Week 1 MUST cover (see homework) ...
+- What is a parameter (how many in linear regression)
+- What is n of data
+- lm and stan_lm (quickly)
+- What is an effect size?
+- Students enrolled need to have me add them to the Git repo (and if they have better ideas of how I should do this in the future, they can tell me)
+
 ## Day 1
 - What is Bayes (intro, including: equations, fac vs. obligate)
-- Overview of workflow
+- Overview of workflow (on board)
 - (After break) Simulate data together
 
 Activities:
-- Review a reent roject of yours: what parts of workflow did you follow or not? Which do you think matter the most?
+- Review a recent roject of yours: what parts of workflow did you follow or not? Which do you think matter the most?
 - Simulating data!
 
 ## Day 2
@@ -51,3 +63,8 @@ Activities:
 # Need to find datasets!
 - Check lme
 - Olympic figure skating example?
+
+
+## Rooms!
+CEME 1206: https://learningspaces.ubc.ca/classrooms/ceme-1206/
+BUCH B304: https://learningspaces.ubc.ca/classrooms/buch-b304/

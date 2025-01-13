@@ -6,6 +6,8 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage{parskip}
+\usepackage{todonotes}
+
 
 \def\labelitemi{--}
 \parindent=0pt
@@ -14,24 +16,168 @@
 \bibliographystyle{/Users/Lizzie/Documents/EndnoteRelated/Bibtex/styles/besjournals}
 \renewcommand{\refname}{\CHead{}}
 
-Try to cover ...
+% To do moved to git issue: https://github.com/temporalecologylab/bayes2025/issues/1
+\section{Class 1} 
+
+\subsection{Structure of today}
+\begin{itemize}
+\item Few minutes for urgent course content questions ... 
+\item Review what is Bayesian (briefly) and the workflow I will teach for it
+\item Focus on simulating data from a linear regression
+\item END: course content, grading etc..
+\end{itemize}
+Okay! You all should have received my email about the course, which means\\ {\bf you're here because ... }
+\begin{itemize}
+\item Excited to learn Bayesian inference and modeling!
+\item Excited to work together in pairs or teams during class (even if you're auditing)
+\item Know enough R to code actively in class 
+\item Have a laptop and note-taking devices
+\end{itemize}
+If you're {\bf not sure} about any of these, stay here and come talk with me after. 
+
+\subsection{Before I dive in ... reminder: don't panic} % Don't panic: How to get the most out of a stats class
+No one gets everything in a stats class the first time, but you need to keep listening and not zone out.
+
+\subsection{What is Bayesian? Pros and cons}
+It's a way of getting estimates from a model based on the likelihood from data and your prior beliefs.\\
+It's a way of fitting and inferring from models that is extremely flexible and relies on prior knowledge. (That's basically all you need to know for today.)\\
+
+\todo[inline]{Ask the students to list out pros and cons. Make sure they hit the below.}
+
+Pros
+\begin{itemize}
+\item Very flexible!
+\item Optimally handles uncertainty
+\item Intuitive
+\item No assumptions! No iid, nothing to memorize!
+\end{itemize}
+
+Cons
+\begin{itemize}
+\item No assumptions, you must check your own model and know what you're doing ... 
+\item Computationally heavy
+\end{itemize}
+
+\subsubsection{Types of Bayesians}
+There are {\bf many} types of Bayesians:
+\begin{itemize}
+\item Andy Royle Bayesians with specific beliefs about how you fit mark-recapture models
+\item People obsessed with DAGs
+\item Facultative Bayesians
+\item Andrew Gelman Bayesians (BDA)
+\end{itemize}
+
+{\bf I will teach you my style of Bayesian ...} which is pretty close to a Gelman Bayesian with other ideas (Betancourt etc.) thrown in. 
+
+{\bf This does not matter! Except when you go out into the world} and meet the other Bayesians.
+
+\subsection{What is Bayesian? A workflow}
+
 \begin{enumerate}
-\item counterfactual
+\item Come up with your model
+\item Simulate data from your model to check it
+\item Prior predictive checks
+\item Run your model on empirical data
+\item Retrodictive checks (aka PPCs)
 \end{enumerate}
 
-To do!
-\begin{enumerate}
-\item Make up a visualization hints wiki page
-\item Make up a vignettes etc. wiki page
-\item Make a page with papers using Stan, here one \url{https://onlinelibrary.wiley.com/doi/full/10.1111/ele.70037} and code \url{https://zenodo.org/records/14188532}
-\end{enumerate}
+\emph{This class will focus on most of this workflow!} \\Except step 1 and we won't dwell on step 2 (prior checks).
+
+\section{Simulate from a linear model: Part 1}
+
+{\bf We're going to use something that works with linear regression for our model, so continuous $x$ and continuous $y$}
+\todo[inline]{Get class to come up with an example and DRAW it out on a graph} Options: Plant growth in response to soil nutrient concentration, biometric scaling etc. 
+
+\todo[inline]{Ask students equation for a line.}
+Write out various notations and differentiate {\bf {\Large parameters}} from {\bf \Large data}} (ideally, skip the error here)
+
+\emph{Okay, I want to simulate data from this equation, what do I do?}
+
+In this section be sure to ...
+\begin{itemize}
+\item Slope versus intercept
+\item Come up with parameter numbers to write on board
+\item Mention \verb|rnorm|
+\item Get the ERROR onto the equation if you have not already
+\item mention $n$
+\item What is an effect size? 
+\end{itemize}
+
+\todo[inline]{Students should pair up and work on doing this with the following rules ...} 
+\begin{itemize}
+\item You must BOTH end up with the code you come up with.
+\item You alert me when you're done or have a question ... [If they are done, they should check their work using lm, then try to simulate a LOGISTIC regression.]
+\end{itemize}
+
+\todo[inline]{Note to self: Give the class a 10 minute break by 3pm!} 
+
+\section{Simulate from a linear model: Part 2}
+
+Come together and review how they did. Live code with them the course example using lm to check work. 
+
+\todo[inline]{Discuss: How might this be valuable?} 
+And be sure to discuss why this is critical in Bayesian approaches (NO assumptions; you must CHECK and UNDERSTAND your model.}
+
+\section{Simulate from a linear model: Add interactions}
+
+Review this if time allows .... 
+\begin{itemize}
+\item Intercept only model
+\item Adding an interaction to a model ... 
+\end{itemize}
+
+\section{Review of course}
+\begin{itemize}
+\item 3 weeks, 6 classes, we'll get to hierarchical modeling
+\item Grading is participation and homework
+\item There are TWO homework (end of each of the first 2 weeks). Please do them! Even if you are auditing.
+\item No project, you must use a provided dataset
+\item Course managed on GitHub; you can submit homework on GitHub or Canvas. 
+\item GitHub has wiki with resources ... Review (if time allows)
+\item We will use rstanarm, which is a version of Stan -- make sure you have it running before the next class. 
+\item Remind me to give you a BREAK in the middle of class
+\item Questions?
+\end{itemize}
 
 
-Datasets!
-\begin{enumerate}
-\item Palmer Penguins \url{https://allisonhorst.github.io/palmerpenguins/}
-\item Carnivore teeth from JD 
-\end{enumerate}
+\newpage
+\section{Class 2} 
+\subsection{Cover interactions! If you have not already ...}
+
+
+\subsection{What is Bayesian: Posterior}
+Go over it.
+Give my Star Wars example.
+\todo[inline]{Discuss in pairs: Another example!} 
+
+Other examples: Complete separation.... 
+
+\subsection{What is Bayesian: Prior}
+
+Types of priors (informative, non-informative, weakly informative)
+
+Why we will not do prior checks ... \\ Because they are annoying in rstanarm, brms etc. They are easier in raw Stan code. 
+
+EXAMPLE: Show code where likelihood overwhelms prior. 
+
+\subsection{Simulate another example ... and fit it in rstanarm}
+
+
+\subsection{Review the homework assignment!}
+\begin{itemize}
+\item How to submit
+\item What to do if you get stuck ..
+\item A note on using ChatGPT
+\end{itemize}
 
 \end{document}
 
+
+\begin{enumerate}
+\item
+\end{enumerate}
+
+
+\begin{itemize}
+\item
+\end{itemize}

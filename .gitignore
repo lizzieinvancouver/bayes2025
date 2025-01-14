@@ -9,4 +9,9 @@
 *.ppt
 *.pptx
 
+*.aux
+*.log
+*.out
+*.synctex.gz
+
 /notposting

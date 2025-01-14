@@ -2,14 +2,7 @@
 
 ## Need to cover ...
 - Don't use bar charts
-- Many types of Bayesians (examples of Gelman vs. wildlife folks, versus DAG lovers etc. versus facultative)
-- What is a `parameter` versus data
-- How the class will run: active in class, do homework, grading etc.
 - What is the posterior
-- Different way to write a linear equation
-- Logistic regression example (as a backup task, not in class lecture)
-- Why use Bayesian? 
-- Perils of using Bayesian vs Freq and intro to workflow for this reason (you build your own assumptions instead of memorizing them!)
 
 
 ## Maybe cover (if time allows)

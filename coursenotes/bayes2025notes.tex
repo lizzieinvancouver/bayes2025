@@ -35,10 +35,27 @@ Okay! You all should have received my email about the course, which means\\ {\bf
 \end{itemize}
 If you're {\bf not sure} about any of these, stay here and come talk with me after. 
 
+\subsection{Who I am and course aims ...}
+
+{\bf Who am I?} Quick review of how I learned Bayesian and how it is all I basically used now. Like many died in the wool Bayesians I believe this makes me: 
+\begin{itemize}
+\item Happier, free from p-values
+\item Think harder about the science
+\item Have a WAY better sense of how the models I use work and how well they work on data similar to my own. 
+\item More suspicious of a lot of stats
+\end{itemize}
+
 \subsection{Before I dive in ... reminder: don't panic} % Don't panic: How to get the most out of a stats class
 No one gets everything in a stats class the first time, but you need to keep listening and not zone out.
 
-(Also, should I mention that this is the FIRST year I am teaching this class so bear with me?)
+\subsection{What I want you to get out of this class} 
+\begin{itemize}
+\item The basics of what Bayesian is and how to implement
+\item The importance of a workflow and understand one I use and recommend
+\item Give some example of what they'll be able to do at the end (will vary by student)
+\item Get some of your burning questions answered ... {\bf Feel free to ask questions/interrupt!}
+\item You probably will not come out of this class ready to analyze cut-point ordinal models for your community ecology data, but you'll have the workflow skills to start to think about to approach such a problem. 
+\end{itemize}
 
 \subsection{What is Bayesian? Pros and cons}
 It's a way of getting estimates from a model based on the likelihood from data and your prior beliefs.\\
@@ -52,6 +69,9 @@ Pros
 \item Optimally handles uncertainty
 \item Intuitive
 \item No assumptions! No iid, nothing to memorize!
+\item Stop worrying about what your p-value is or contorting yourself to accurately define a CI
+\item Get mechanistic insights!
+\item Have a better sense of your parameter estimates
 \end{itemize}
 
 Cons
@@ -85,7 +105,7 @@ There are {\bf many} types of Bayesians:
 
 \emph{This class will focus on most of this workflow!} \\Except step 1 and we won't dwell on step 2 (prior checks).
 
-\section{Simulate from a linear model: Part 1}
+\subsection{Simulate from a linear model: Part 1}
 
 {\bf We're going to use something that works with linear regression for our model, so continuous $x$ and continuous $y$}
 \todo[inline]{Get class to come up with an example and DRAW it out on a graph} Options: Plant growth in response to soil nutrient concentration, biometric scaling etc. 
@@ -108,19 +128,21 @@ In this section be sure to ...
 \todo[inline]{Students should pair up and work on doing this with the following rules ...} 
 \begin{itemize}
 \item You must BOTH end up with the code you come up with.
-\item You alert me when you're done or have a question ... [If they are done, they should check their work using lm, then try to simulate a LOGISTIC regression.]
+\item Simulate, plot and then try to figure out a way to tell if you have done it right... 
+\item You alert me when you're done, stuck or have a question ... [If they are done, they should check their work using \verb|lm|, then try to simulate a LOGISTIC regression.]
 \end{itemize}
 
 \todo[inline]{Note to self: Give the class a 10 minute break by 3pm!} 
 
-\section{Simulate from a linear model: Part 2}
+\subsection{Simulate from a linear model: Part 2}
 
-Come together and review how they did. Live code with them the course example using lm to check work. 
+Come together and review how they did. Live code with them the course example using \verb|lm| and \verb|stan_glm| to check work. 
 
 \todo[inline]{Discuss: How might this be valuable?} 
-And be sure to discuss why this is critical in Bayesian approaches (NO assumptions; you must CHECK and UNDERSTAND your model.}
+And be sure to discuss why this is critical in Bayesian approaches ...\\
+NO assumptions; you must CHECK and UNDERSTAND your model.
 
-\section{Simulate from a linear model: Add interactions}
+\subsection{Simulate from a linear model: Add interactions}
 
 Review this if time allows .... 
 \begin{itemize}
@@ -128,9 +150,13 @@ Review this if time allows ....
 \item Adding an interaction to a model ... 
 \end{itemize}
 
-\section{Review of course}
+Go through the math on the board, introduce dummy variables and then set them to try to simulate a model with an interaction and see if they can return the parameters. \\
+Or, we get to this tomorrow more likely ... 
+
+\subsection{Review of course (by 4:20pm)}
 \begin{itemize}
 \item 3 weeks, 6 classes, we'll get to hierarchical modeling
+\item ... but I am not sure when! I reserve the right to move things around (small chance I will start hierarchical modeling next week). 
 \item Grading is participation and homework
 \item There are TWO homework (end of each of the first 2 weeks). Please do them! Even if you are auditing.
 \item No project, you must use a provided dataset
@@ -141,37 +167,111 @@ Review this if time allows ....
 \item Questions?
 \end{itemize}
 
-
+%%%%%%%%%%%%
+%%%%%%%%%%%%
 \newpage
 \section{Class 2} 
-\subsection{Cover interactions! If you have not already ...}
 
+Stuff to have prepped for this class ....
+\begin{itemize}
+\item TWO articles to show ...
+\item \url{https://www.countbayesie.com/blog/2015/2/18/hans-solo-and-bayesian-priors}
+\item The html from \url{https://github.com/lizzieinvancouver/bayesianflowsexample}
+\item \url{https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=banana}
+\end{itemize}
+
+{\bf Review the workflow!} Write it up  and point to where we are \\
+...maybe tell them -- yes! 
+You will spend more of your life fitting models to not your empirical data if you properly use the Bayesian workflow.\\
+Give TWO examples of this in papers (post code for the test data later). \\ % Flynn & Wolkovich, Ettinger 2020, Morales-Castilla (nice, because I can show the pmm repo)
+Maybe touch on -- I have ended up with simpler models. \\
+
+{\bf Review equations from yesterday ...}
+Be sure to encourage them to move towards the one without $normal(0, \sigma)$  use $normal(\mu, \sigma)$
 
 \subsection{What is Bayesian: Posterior}
-Go over it.
-Give my Star Wars example.
-\todo[inline]{Discuss in pairs: Another example!} 
+Go over it. Maybe on the chalkboard ...  
 
-Other examples: Complete separation.... 
+Use the webpage eventually to come up with an example
+\href{https://www.countbayesie.com/blog/2015/2/18/hans-solo-and-bayesian-priors}{Give my Star Wars example.}
+
+\todo[inline]{Discuss in pairs: Another example (if time allows)} 
+
+Other examples: Complete separation.... Dolph's Iraq war example (which is not great).
 
 \subsection{What is Bayesian: Prior}
 
 Types of priors (informative, non-informative, weakly informative)
 
+\todo[inline]{Discuss in pairs: An example of a prior you would set on a parameter related to your system (or just a fun example). (Only time allows)} 
+Round robin of how would you set a prior for your data ... (set model first).
+
+\subsection{How much do priors matter?}
+It depends ..... ask the class what they think it depends on.
+
+\todo[inline]{... ask the class what they think it depends on.} 
+
+EXAMPLE: Show code where likelihood overwhelms prior. Can go through Stan briefly if time allows and introduce MCMC. 
+
+EXAMPLE: Show prior predictive check from \url{https://github.com/lizzieinvancouver/bayesianflowsexample/blob/main/example.html} 
+
 Why we will not do prior checks ... \\ Because they are annoying in rstanarm, brms etc. They are easier in raw Stan code. 
 
-EXAMPLE: Show code where likelihood overwhelms prior. 
+\subsection{MAYBE: Simulate another example ... and fit it in rstanarm} 
 
-\subsection{Simulate another example ... and fit it in rstanarm}
+\subsection{What is MCMC? And why do we need it ...}
+
+To get a posterior in Bayesian, we generally get samples from it. \\
+Sampling for Bayesian models almost always have 3 ingredients:
+
+\begin{enumerate}
+\item Monte Carlo -- process to generate random draws (\verb|rnorm|)
+\item Markov chain -- Monte carlo with correlated steps
+\item Algorithm -- e.g., Metropolis Hastings
+\end{enumerate}
+
+ON THE BOAD: give an example for linear regression (alpha, beta, sigma) and walk through for Metropolis Hastings. \\
+NEXT: Discuss proposal issue and mention GIBBS.\\
+THEN: mention Stan and what it does conceptually. 
+
+Then spend a while looking at: \url{https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=banana}
+
+Maybe mention `hill-climbing' -- which is what this is in some ways. 
+
+{\bf How many dimensions is a posterior?} As many dimensions as the number of parameters you have. \\
+So it's a complex space to search! \\
+Mention GIBBS and how it works (long runs, search for chain hangups) versus Stan (divergences).\\ 
+
+
+
+% \subsection{Cover interactions! If you have not already ...}
+% Go through the math on the board, introduce dummy variables and then set them to try to simulate a model with an interaction and see if they can return the parameters. 
 
 
 \subsection{Review the homework assignment!}
 \begin{itemize}
+\item Go over the tasks (homework on board)
+\item Review the datasets briefly (mention hierarchical)
 \item How to submit
-\item What to do if you get stuck ..
+\begin{itemize}
+\item GitHub -- do you all want write access?
+\item Canvas (but I prefer GitHub)
+\end{itemize}
+\item What to do if you get stuck ... ask classmates for help, use Piazza, move onto next step. 
 \item A note on using ChatGPT
 \end{itemize}
 
+\newpage
+\section{Class 3} 
+
+{\bf Review the workflow!} Maybe write it up fast or such and point to where we are ...maybe tell them -- yes! You will spend more of your life fitting models to not your empirical data if you properly use the Bayesian workflow.
+
+{\bf Review the homework!} 
+\begin{itemize}
+\item What was hard? 
+\item What parameters fit better or worse? 
+\item Get to what they learned about interactions ... (16X)
+\end{itemize}
 \end{document}
 
 

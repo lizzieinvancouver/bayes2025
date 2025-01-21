@@ -17,7 +17,13 @@
 \renewcommand{\refname}{\CHead{}}
 
 % To do moved to git issue: https://github.com/temporalecologylab/bayes2025/issues/1
-\section{Class 1} 
+\section{Class 1}  % I threw out my paper notes from today as there was not much on then; next time i teach make up board notes of eqns etc.!
+
+FIX: Next time ... 
+\begin{itemize}
+\item Draw out dots on $y=\alpha + \beta (x)$ versus with error (off line)
+\item Point out today or tomorrow that memorizing $ypred=\alpha + \beta (x)$ and $y_i \sim normal(ypred, \sigma^2)$ will make it easier to learn out distributions that focusing on $y_i=\alpha + \beta (x) + \epsilon$ and $\epsilon \sim normal(0, \sigma^2)$ 
+\end{itemize}
 
 \subsection{Structure of today}
 \begin{itemize}
@@ -34,6 +40,9 @@ Okay! You all should have received my email about the course, which means\\ {\bf
 \item Have a laptop and note-taking devices
 \end{itemize}
 If you're {\bf not sure} about any of these, stay here and come talk with me after. 
+
+\subsection{Round-robin of quick intros}
+Who is in the class...
 
 \subsection{Who I am and course aims ...}
 
@@ -171,19 +180,34 @@ Or, we get to this tomorrow more likely ...
 %%%%%%%%%%%%
 \newpage
 \section{Class 2} 
+\emph(May want to have start of class 2 (MCMC) prepped!)
 
-Stuff to have prepped for this class ....
+Stuff to have prepped for this class .... Part 1 ({\bf finished at 4:15pm first time, but depends on questions!})
 \begin{itemize}
-\item TWO articles to show ...
-\item \url{https://www.countbayesie.com/blog/2015/2/18/hans-solo-and-bayesian-priors}
+\item TWO or three articles to show ... (Flynn \& Wolkovich, OSPREE bb ms and Morales-Castilla)
+\item Code that goes with some of them % git/projects/treegarden/budexperiments/analyses/FakeBudburst_Generate.R and pmm repo for example
+\item \url{https://www.countbayesie.com/blog/2015/2/18/hans-solo-and-bayesian-priors} % What is the posterior?
+\item The html from \url{https://github.com/lizzieinvancouver/bayesianflowsexample} for prior predictive checks (but I could find/make better example)
+\item priorpost code (misspecify model)
+\end{itemize}
+
+Stuff to have prepped for this class .... Part 2 (MCMC) 
+\begin{itemize}
 \item The html from \url{https://github.com/lizzieinvancouver/bayesianflowsexample}
 \item \url{https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=banana}
 \end{itemize}
 
+Stuff to have prepped for this class .... HOMEWORK review at the end!
+
 {\bf Review the workflow!} Write it up  and point to where we are \\
 ...maybe tell them -- yes! 
 You will spend more of your life fitting models to not your empirical data if you properly use the Bayesian workflow.\\
-Give TWO examples of this in papers (post code for the test data later). \\ % Flynn & Wolkovich, Ettinger 2020, Morales-Castilla (nice, because I can show the pmm repo)
+Give TWO-THREE examples of this in papers (post code for the test data later). \\ % Flynn & Wolkovich, Ettinger 2020, Morales-Castilla (nice, because I can show the pmm repo)
+\begin{itemize}
+\item Flynn \& Wolkovich: I stopped using 2-way interactions
+\item Ettinger et al. 2020: No interactions given uneven data and following the workflow we realized this was not good, main effects average over interactions
+\item Morales-Castilla et al. 2024: We ask different questions, no need for big models, but still writing important papers (could mention decsens)
+\end{itemize}
 Maybe touch on -- I have ended up with simpler models. \\
 
 {\bf Review equations from yesterday ...}
@@ -201,10 +225,20 @@ Other examples: Complete separation.... Dolph's Iraq war example (which is not g
 
 \subsection{What is Bayesian: Prior}
 
-Types of priors (informative, non-informative, weakly informative)
+\todo[inline]{Note to LIZZIE: Think about order below} 
+
+{\bf Two take-homes I want them to get ...} This is repeated later in this document ....
+\begin{enumerate}
+\item It's not that hard to come up with potentially informative priors that you should feel good about. You have them most often, you just need to get better at thinking about them.
+\item In many models, data can overwhelm your priors. 
+\end{enumerate}
+
+Types of priors (informative, non-informative, weakly informative)... in 2024 I wrote them out and crossed off non-informative, I taught weakly as 3X and draw out on board what happens if prior constrains posterior and then you go up 3X. Be sure to WRITE out the math of the prior here (what I mean by 3X) and DRAW it. 
 
 \todo[inline]{Discuss in pairs: An example of a prior you would set on a parameter related to your system (or just a fun example). (Only time allows)} 
 Round robin of how would you set a prior for your data ... (set model first).
+
+Could give my example of coming up with priors for synchrony (days per decade known of 3-5 days per decade, also give extremes we know are too big -- 100 days per year or decade is clearly NOT happening, for example -- and that y axis limits me some here).  Should also draw and WRITE out example here. Could even open class with this as a STORY?
 
 \subsection{How much do priors matter?}
 It depends ..... ask the class what they think it depends on.
@@ -217,32 +251,15 @@ EXAMPLE: Show prior predictive check from \url{https://github.com/lizzieinvancou
 
 Why we will not do prior checks ... \\ Because they are annoying in rstanarm, brms etc. They are easier in raw Stan code. 
 
-\subsection{MAYBE: Simulate another example ... and fit it in rstanarm} 
-
-\subsection{What is MCMC? And why do we need it ...}
-
-To get a posterior in Bayesian, we generally get samples from it. \\
-Sampling for Bayesian models almost always have 3 ingredients:
-
+{\bf Two take-homes: Make sure you say this!} From above...
 \begin{enumerate}
-\item Monte Carlo -- process to generate random draws (\verb|rnorm|)
-\item Markov chain -- Monte carlo with correlated steps
-\item Algorithm -- e.g., Metropolis Hastings
+\item It's not that hard to come up with potentially informative priors that you should feel good about. You have them most often, you just need to get better at thinking about them.
+\item In many models, data can overwhelm your priors. 
 \end{enumerate}
 
-ON THE BOAD: give an example for linear regression (alpha, beta, sigma) and walk through for Metropolis Hastings. \\
-NEXT: Discuss proposal issue and mention GIBBS.\\
-THEN: mention Stan and what it does conceptually. 
 
-Then spend a while looking at: \url{https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=banana}
-
-Maybe mention `hill-climbing' -- which is what this is in some ways. 
-
-{\bf How many dimensions is a posterior?} As many dimensions as the number of parameters you have. \\
-So it's a complex space to search! \\
-Mention GIBBS and how it works (long runs, search for chain hangups) versus Stan (divergences).\\ 
-
-
+\subsection{MAYBE: Simulate another example ... and fit it in rstanarm} 
+\subsection{OR: Start on MCMC...} Moved my notes from here to next class 
 
 % \subsection{Cover interactions! If you have not already ...}
 % Go through the math on the board, introduce dummy variables and then set them to try to simulate a model with an interaction and see if they can return the parameters. 
@@ -261,18 +278,154 @@ Mention GIBBS and how it works (long runs, search for chain hangups) versus Stan
 \item A note on using ChatGPT
 \end{itemize}
 
+%%%%%%%%%%%%
+%%%%%%%%%%%%
 \newpage
 \section{Class 3} 
+
+Stuff to have prepped for this class .... (MCMC) 
+\begin{itemize}
+\item HOMEWORK!
+\item The html from \url{https://github.com/lizzieinvancouver/bayesianflowsexample}
+\item \url{https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=banana}
+\item \verb|ncp_needed.png|
+\item \verb|diagnostiscsday.R| and make sure it's running well
+\end{itemize}
 
 {\bf Review the workflow!} Maybe write it up fast or such and point to where we are ...maybe tell them -- yes! You will spend more of your life fitting models to not your empirical data if you properly use the Bayesian workflow.
 
 {\bf Review the homework!} 
+\todo[inline]{Have the class count off by 4-6 or such to end up in groups of 3-4 and then compare their homework}  During this I should get a tally on which datasets people picked.
+
+In small groups cover:
+\begin{itemize}
+\item Decide which parameters fit best or worst and discuss WHY?
+\item What common issues did they have in coding?
+\end{itemize}
+
+As a whole group, cover the homework to discuss ... 
 \begin{itemize}
 \item What was hard? 
 \item What parameters fit better or worse? 
 \item Get to what they learned about interactions ... (16X)
 \end{itemize}
+
+\subsection{What is MCMC? And why do we need it ...}
+
+To get a posterior in Bayesian, we generally get samples from it. \\
+Sampling for Bayesian models almost always have 3 ingredients:
+
+\begin{enumerate}
+\item Monte Carlo -- process to generate random draws (\verb|rnorm|)
+\item Markov chain -- Monte carlo with correlated steps
+\item Algorithm -- e.g., Metropolis Hastings
+\end{enumerate}
+
+{\bf How many dimensions is a posterior?} As many dimensions as the number of parameters you have. \\
+
+ON THE BOARD: give an example for linear regression (alpha, beta, sigma) and walk through for Metropolis Hastings. \\
+
+\begin{enumerate}
+\item start somewhere (initial conditions)
+\item Use the monte carlo to get a random place to jump
+\item Now evaluate your posterior here relative to where you were
+\item If your jump is no better, then you draw new random jump (step 2) and repeat
+\item If your jump is better, you flip a coin to decide whether to stay 
+\end{enumerate}
+\todo[inline]{Ask the class: Why do flip a coin?.} Otherwise your chain gets into crevices and does not search fully, {\bf SEARCHING fully the challenge.} Give the roomba vacuum example.  
+
+NEXT: Discuss proposal issue and mention Gibbs (Gibbs uses conjugate priors to make more efficient proposals).\\ % Gibbs is named after some guy called Gibbs
+
+THEN: mention Stan and what it does conceptually. See page 247 of \emph{Statistical Rethinking}: HMC runs a particle simulation so it can move quickly through flat posterior space and slower through complex space. 
+
+Then spend a while looking at: \url{https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=banana}
+
+Maybe mention `hill-climbing' -- which is what this is in some ways. 
+
+MENTION: Warmup and total iterations needed ... 
+
+{\bf How many dimensions is a posterior?} As many dimensions as the number of parameters you have. \\
+So it's a complex space to search! \\
+Mention GIBBS and how it works (long runs, search for chain hangups) versus Stan (divergences).\\ 
+
+\subsection{MCMC diagnostics}
+
+The three basic ones!
+\begin{enumerate}
+\item Rhat -- compare variance with a chain to variance across chains
+\item $n_{effective}$ -- aim for 10\% of your total iterations 
+\item msce -- Markov Chain SE -- I never use this as I have never seen it be uniquely helpful
+\end{enumerate}
+
+And ... Divergences -- pairs plots -- LOOK up \verb|ncp_needed.png| And discuss.
+
+Go through ShinyStan using \verb|diagnostiscsday.R| 
+
+
+
+%%%%%%%%%%%%
+%%%%%%%%%%%%
+\newpage
+\section{Class 4} 
+
+Stuff to have prepped for this class .... 
+\begin{itemize}
+\item Homework assignment! For the end
+\item OPSREE paper showing plot of random effects
+\item Code that simulates hierarchical data
+\item Plot showing partial pooling (shrinkage)
+\end{itemize}
+
+\todo[inline]{Ask the class, how do I know when I need a hierarchical model?}
+{\bf GOAL: Get to where I draw out a random intercepts model and a random slopes (only) model and a random slopes and intercepts model!}
+
+\subsection{Math of a hierarchical model}
+
+Start with lmer syntax, then linear regression syntax, then move on ... 
+
+\subsection{Pooling} % Review pages 256-257 G&H
+Review: complete pooling, no pooling, partial pooling ... 
+
+Why do I compare these? 
+
+ ... what determines HOW MUCH pooling?
+
+\subsection{Fixed versus random effects, which is better?}
+
+\todo[inline]{Ask the class: Should you fit random effects when you really care or don't care about the effects?}
+
+
+\subsection{Crossed versus nested}
+
+\subsection{Some terminology}
+Hyperparameters -- model parameters without group level subscripts (the $\mu$ and $\sigma$ -- overall averages)
+
+
+
+\subsection{Review the homework assignment!}
+\begin{itemize}
+\item Datasets ... 
+\end{itemize}
+
+%%%%%%%%%%%%
+%%%%%%%%%%%%
+\newpage
+\section{Class 5} 
+
+
+
+
+%%%%%%%%%%%%
+%%%%%%%%%%%%
+\newpage
+\section{Class 6} 
+
+Latent parameter examples?\\
+Qualitative data (elongated fish example) -- could briefly introduce MXTURE models here, as you could use the shapes as the way to possible define different groups, where each group gets a different body-mass to length relationship. 
+
 \end{document}
+
+
 
 
 \begin{enumerate}

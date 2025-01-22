@@ -10,7 +10,7 @@ options(stringsAsFactors = FALSE)
 library(rstanarm)
 options(mc.cores = parallel::detectCores()) # use all my cores, go for it!
 
-setwd("~/Documents/git/teaching/hotstats/hotstatsbayes/sandboxcode")
+setwd("~/Documents/git/teaching/hotstats/hotstatsmisc/homeworkbayes2025/homeworksubmitted/lizzie/homework1done")
 
 # Set up a regression problem: a plant grows in response to increasing water
 n <- 100 # in my testing, I put this as high as 10000 to check my code for the test data

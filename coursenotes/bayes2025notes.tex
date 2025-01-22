@@ -286,13 +286,12 @@ Why we will not do prior checks ... \\ Because they are annoying in rstanarm, br
 Stuff to have prepped for this class .... (MCMC) 
 \begin{itemize}
 \item HOMEWORK!
-\item The html from \url{https://github.com/lizzieinvancouver/bayesianflowsexample}
+\item Gelman blog posts on interactions ... 
+% \item The html from \url{https://github.com/lizzieinvancouver/bayesianflowsexample} % Not sure why I wanted this, using diagnostics day which is easier. 
 \item \url{https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=banana}
 \item \verb|ncp_needed.png|
 \item \verb|diagnostiscsday.R| and make sure it's running well
 \end{itemize}
-
-{\bf Review the workflow!} Maybe write it up fast or such and point to where we are ...maybe tell them -- yes! You will spend more of your life fitting models to not your empirical data if you properly use the Bayesian workflow.
 
 {\bf Review the homework!} 
 \todo[inline]{Have the class count off by 4-6 or such to end up in groups of 3-4 and then compare their homework}  During this I should get a tally on which datasets people picked.
@@ -307,32 +306,57 @@ As a whole group, cover the homework to discuss ...
 \begin{itemize}
 \item What was hard? 
 \item What parameters fit better or worse? 
-\item Get to what they learned about interactions ... (16X)
+\item Get to what they learned about interactions ... (16X) -- review what you need to calculate power:
+\begin{itemize}
+\item Sample size
+\item error ($\sigma_y$)
+\item effect size (`sledgehammer' experiments are used for a reason)
+\end{itemize}
+\item I will post my version of the homework ...
 \end{itemize}
 
 \subsection{What is MCMC? And why do we need it ...}
 
-To get a posterior in Bayesian, we generally get samples from it. \\
+{\Large Announce to class:} You do not need to understand MCMC (or HMC) super well to do Bayesian, but you need to understand the diagnostics and having some sense of the algorithm can help with that (but don't panic if you don't get the algorithm, focus on the diagnostics and keep learning). \\
+
+To get a posterior in Bayesian, we don't compute it, we instead (generally) get samples from it using an algorithm. \\
 Sampling for Bayesian models almost always have 3 ingredients:
 
 \begin{enumerate}
-\item Monte Carlo -- process to generate random draws (\verb|rnorm|)
-\item Markov chain -- Monte carlo with correlated steps
-\item Algorithm -- e.g., Metropolis Hastings
+\item Monte Carlo -- process to generate random draws (\verb|rnorm| or $\normal(\theta, \sigma)$)
+\item Markov chain -- Monte Carlo with correlated steps $\normal(\theta_{n-1}, \sigma)$
+\item Algorithm -- e.g., Metropolis Hastings (FYI, you can use this for things other than getting samples from a posterior)
 \end{enumerate}
 
 {\bf How many dimensions is a posterior?} As many dimensions as the number of parameters you have. \\
 
 ON THE BOARD: give an example for linear regression (alpha, beta, sigma) and walk through for Metropolis Hastings. \\
+Steps are: 
 
 \begin{enumerate}
-\item start somewhere (initial conditions)
-\item Use the monte carlo to get a random place to jump
+\item Start somewhere (initial conditions)
+\item Use the Monte Carlo to get a random place to jump ($\theta_{new}$)
 \item Now evaluate your posterior here relative to where you were
-\item If your jump is no better, then you draw new random jump (step 2) and repeat
-\item If your jump is better, you flip a coin to decide whether to stay 
+\item If your jump is better, accept and jump there! ($\theta_{new+1}$)
+\item If your jump is no better, then you compare the ratio to a random draw from a uniform (0,1) distribution; if the ratio is higher than this value you jump anyway. (Acceptance probability.)
+\item If the ratio is lower than this value you {\bf don't jump} -- your proposal is {\bf rejected}; draw new random jump (step 2) and repeat
+% \item If your jump is better, you flip a coin to decide whether to stay 
 \end{enumerate}
-\todo[inline]{Ask the class: Why do flip a coin?.} Otherwise your chain gets into crevices and does not search fully, {\bf SEARCHING fully the challenge.} Give the roomba vacuum example.  
+\todo[inline]{Ask the class: Why do you sometimes accept lower ratios?} To help your chain search fully ... Each random draw means you can go down the hill. Otherwise your chain gets into crevices and does not search fully, {\bf SEARCHING fully the challenge.} Give the roomba vacuum example. 
+
+{\bf Problems: (1) The start of the chain is not good.}
+
+{\bf Problems: (2) The steps are correlated.}
+
+{\bf Solutions? One is multiple chains!} 
+
+Others ... 
+\begin{itemize}
+\item Drop the start of the chain
+\item Thin the samples
+\item Another is to run chains a LONG time (Gibbs)
+\item Get a better algorithm
+\end{itemize}
 
 NEXT: Discuss proposal issue and mention Gibbs (Gibbs uses conjugate priors to make more efficient proposals).\\ % Gibbs is named after some guy called Gibbs
 
@@ -340,13 +364,24 @@ THEN: mention Stan and what it does conceptually. See page 247 of \emph{Statisti
 
 Then spend a while looking at: \url{https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=banana}
 
-Maybe mention `hill-climbing' -- which is what this is in some ways. 
+(Maybe mention `hill-climbing' -- which is what this is in some ways.)
 
 MENTION: Warmup and total iterations needed ... 
 
 {\bf How many dimensions is a posterior?} As many dimensions as the number of parameters you have. \\
 So it's a complex space to search! \\
-Mention GIBBS and how it works (long runs, search for chain hangups) versus Stan (divergences).\\ 
+
+Mention GIBBS and how it works (long runs, search for chain hangups) versus Stan (divergences).
+
+{\bf Divergent transitions:} ``A divergence arises when the simulated Hamiltonian trajectory departs from the true trajectory as measured by departure of the Hamiltonian value from its initial value. When this divergence is too high, the simulation has gone off the rails and cannot be trusted." In other words, something is wrong in your model.  % https://mc-stan.org/docs/2_19/reference-manual/divergent-transitions
+
+A few notes on divergences:
+\begin{itemize}
+\item You should not report estimates in a paper if you have divergent transitions! You must get rid of them ....
+\item Technically, any are bad and you should consider re-parameterizing your model to make your posterior a friendlier shape to search
+\item Some times smaller steps get rid of them (adapt delta command)
+\item Usually you can get rid of a small number (meh, under 30) -- if you have hundreds for 4000 steps then something is DEEPLY wrong. 
+\end{itemize}
 
 \subsection{MCMC diagnostics}
 
@@ -376,6 +411,8 @@ Stuff to have prepped for this class ....
 \item Plot showing partial pooling (shrinkage)
 \end{itemize}
 
+{\bf Review the workflow!} Write it up fast with the help of the class and point to where we are .... Still simulating data, but a different type. 
+
 \todo[inline]{Ask the class, how do I know when I need a hierarchical model?}
 {\bf GOAL: Get to where I draw out a random intercepts model and a random slopes (only) model and a random slopes and intercepts model!}
 
@@ -389,6 +426,10 @@ Review: complete pooling, no pooling, partial pooling ...
 Why do I compare these? 
 
  ... what determines HOW MUCH pooling?
+ 
+ \subsection{Let's simulate data from a hierarchical model!}
+
+Get the class to start discussing how to do this; then have them TRY it!
 
 \subsection{Fixed versus random effects, which is better?}
 

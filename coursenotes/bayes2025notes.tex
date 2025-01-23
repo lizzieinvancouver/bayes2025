@@ -16,7 +16,11 @@
 \bibliographystyle{/Users/Lizzie/Documents/EndnoteRelated/Bibtex/styles/besjournals}
 \renewcommand{\refname}{\CHead{}}
 
+\tableofcontents
+
 % To do moved to git issue: https://github.com/temporalecologylab/bayes2025/issues/1
+
+\newpage
 \section{Class 1}  % I threw out my paper notes from today as there was not much on then; next time i teach make up board notes of eqns etc.!
 
 FIX: Next time ... 
@@ -407,39 +411,88 @@ Stuff to have prepped for this class ....
 \begin{itemize}
 \item Homework assignment! For the end
 \item OPSREE paper showing plot of random effects
-\item Code that simulates hierarchical data
+\item Code that simulates hierarchical data -- see \verb|hierarchicalday.R| and the \verb|figureskating| folder
 \item Plot showing partial pooling (shrinkage)
 \end{itemize}
 
 {\bf Review the workflow!} Write it up fast with the help of the class and point to where we are .... Still simulating data, but a different type. 
 
-\todo[inline]{Ask the class, how do I know when I need a hierarchical model?}
+\todo[inline]{Ask the class, (1) What is a hierarchical model and (2) how do I know when I need a hierarchical model?}
+
 {\bf GOAL: Get to where I draw out a random intercepts model and a random slopes (only) model and a random slopes and intercepts model!}
+
+Go through:
+\begin{itemize}
+\item random intercepts only
+\item random intercepts and slopes
+\item examples with different amounts of data for each group
+\item exchangeability assumption ... (not sure if this fits here)
+\end{itemize}
+
+If I wanted to fit  linear regression to these data and NOT use a hierarchical model, what are my options?
+
+{\bf Be sure to have a plot on board with different amounts of data in different groups.}
+
+{\Large Pooling} % Review pages 256-257 G&H
+\begin{itemize}
+\item Complete pooling (one line)
+\item No pooling (one model for each group
+\item Hierarchical models are {\bf partial pooling} -- they exist between these two extremes. 
+\end{itemize}
+
+These are useful terms to help you understand what hierarchical models are doing. I use {\bf partial pooling} instead of {\bf shrinkage}. \\
+I also do not use {\bf random effects} as a term as it's super unclear across fields and associated with poor understanding of when to use partial pooling in ecology.
+
+\todo[inline]{Ask the class ... what determines HOW MUCH pooling?}
+
+\begin{itemize}
+\item $n$ for that group (relative to other groups)
+\item variance for that group (relative to other groups)
+\item how close it is to overall mean 
+\item Model structure to some degree (normal, cauchy etc.)
+\end{itemize}
+
+Review: visualizations of partial pooling together \url{https://m-clark.github.io/posts/2019-05-14-shrinkage-in-mixed-models/}
 
 \subsection{Math of a hierarchical model}
 
-Start with lmer syntax, then linear regression syntax, then move on ... 
+Start with lmer syntax, then ...
+\begin{enumerate}
+\item linear regression syntax
+\item then move on to hierarchical model syntax
+\end{enumerate}
 
-\subsection{Pooling} % Review pages 256-257 G&H
-Review: complete pooling, no pooling, partial pooling ... 
+{\bf Be sure to explain hyperparameters} -- (model parameters without group level subscripts (the $\mu$ and $\sigma$ -- overall averages)) and also {\bf hyperpriors}.
 
-Why do I compare these? 
-
- ... what determines HOW MUCH pooling?
- 
- \subsection{Let's simulate data from a hierarchical model!}
+\subsection{Let's simulate data from a hierarchical model!}
 
 Get the class to start discussing how to do this; then have them TRY it!
 
+ \todo[inline]{Note to Lizzie: Review code together with me leading... }
+
+\subsection{Pros and cons a hierarchical model}
+{\bf This can go BEFORE simulating data ... depending on pace.}
+
+Pros
+\begin{itemize}
+\item Leverage more data to estimate things you care about
+\item Gain overall estimates and make inference at a larger scale
+\end{itemize}
+
+Cons
+\begin{itemize}
+\item Can be difficult to fit (parameter-rich)
+\item Assume you have the data to make inference at a larger scale
+\item Exchangeability assumption, especially if you have very uneven sampling (review OSPREE paper visually together)
+\end{itemize}
+ 
+ \todo[inline]{Ask the class: Should you fit random effects when you really care or don't care about the effects?}
+
 \subsection{Fixed versus random effects, which is better?}
 
-\todo[inline]{Ask the class: Should you fit random effects when you really care or don't care about the effects?}
-
+{\bf Question to Lizzie: Have you discussed exchangeability assumption?!}
 
 \subsection{Crossed versus nested}
-
-\subsection{Some terminology}
-Hyperparameters -- model parameters without group level subscripts (the $\mu$ and $\sigma$ -- overall averages)
 
 
 
@@ -448,13 +501,18 @@ Hyperparameters -- model parameters without group level subscripts (the $\mu$ an
 \item Datasets ... 
 \end{itemize}
 
+\subsection{Some terminology} % included above, but keeping here
+Hyperparameters -- model parameters without group level subscripts (the $\mu$ and $\sigma$ -- overall averages)
+
+
 %%%%%%%%%%%%
 %%%%%%%%%%%%
 \newpage
 \section{Class 5} 
 
+Manipulating posteriors, maybe also forecasting, quantiles etc..
 
-
+Open with interaction notation and calculate an example with an additive versus subadditive effect (to get them thinking about how these equations work). 
 
 %%%%%%%%%%%%
 %%%%%%%%%%%%

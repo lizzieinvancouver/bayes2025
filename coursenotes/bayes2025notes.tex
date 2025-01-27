@@ -237,7 +237,7 @@ Other examples: Complete separation.... Dolph's Iraq war example (which is not g
 \item In many models, data can overwhelm your priors. 
 \end{enumerate}
 
-Types of priors (informative, non-informative, weakly informative)... in 2024 I wrote them out and crossed off non-informative, I taught weakly as 3X and draw out on board what happens if prior constrains posterior and then you go up 3X. Be sure to WRITE out the math of the prior here (what I mean by 3X) and DRAW it. 
+Types of priors (informative, non-informative (often $uniform(0,1)$ meaning everything EQUALLY possible, weakly informative)... in 2024 I wrote them out and crossed off non-informative, I taught weakly as 3X and draw out on board what happens if prior constrains posterior and then you go up 3X. Be sure to WRITE out the math of the prior here (what I mean by 3X) and DRAW it. 
 
 \todo[inline]{Discuss in pairs: An example of a prior you would set on a parameter related to your system (or just a fun example). (Only time allows)} 
 Round robin of how would you set a prior for your data ... (set model first).
@@ -406,6 +406,13 @@ Go through ShinyStan using \verb|diagnostiscsday.R|
 %%%%%%%%%%%%
 \newpage
 \section{Class 4} 
+\todo[inline]{This lecture did not go below as planned ... this is how it went:}
+
+\begin{enumerate}
+\item Asked the class lead-in question (this worked)
+\item Drew some plots (this worked}
+\item Immediately ended up at no pooling/partial pooling/complete pooling so should plan on that and have better no pooling notation ($y_{[sp]i}$ and $\sigma_{[sp]}$)
+\end{enumerate}
 
 Stuff to have prepped for this class .... 
 \begin{itemize}
@@ -414,8 +421,6 @@ Stuff to have prepped for this class ....
 \item Code that simulates hierarchical data -- see \verb|hierarchicalday.R| and the \verb|figureskating| folder
 \item Plot showing partial pooling (shrinkage)
 \end{itemize}
-
-{\bf Review the workflow!} Write it up fast with the help of the class and point to where we are .... Still simulating data, but a different type. 
 
 \todo[inline]{Ask the class, (1) What is a hierarchical model and (2) how do I know when I need a hierarchical model?}
 
@@ -455,6 +460,7 @@ I also do not use {\bf random effects} as a term as it's super unclear across fi
 Review: visualizations of partial pooling together \url{https://m-clark.github.io/posts/2019-05-14-shrinkage-in-mixed-models/}
 
 \subsection{Math of a hierarchical model}
+\emph{My notes for this section are mostly on paper (in pencil)}
 
 Start with lmer syntax, then ...
 \begin{enumerate}
@@ -477,6 +483,8 @@ Pros
 \begin{itemize}
 \item Leverage more data to estimate things you care about
 \item Gain overall estimates and make inference at a larger scale
+\item Often accommodates a lot of known variation (high $R^2$)
+\item You can make inference on unmeasured groups (e.g., you can draw a new species from your distribution)
 \end{itemize}
 
 Cons
@@ -489,14 +497,21 @@ Cons
  \todo[inline]{Ask the class: Should you fit random effects when you really care or don't care about the effects?}
 
 \subsection{Fixed versus random effects, which is better?}
+Remember!
+
+No pooling: $\sigma_{alpha} \rightarrow \inf$\\ % infinity
+Complete pooling: $\sigma_{alpha} \rightarrow 0$\\
+
 
 {\bf Question to Lizzie: Have you discussed exchangeability assumption?!}
 
-\subsection{Crossed versus nested}
+\subsection{Crossed versus nested} % We did not get to this, see next class
 
-
+\subsection{Other stuff}
+- Reviewed non-centered parameterization briefly ... 
 
 \subsection{Review the homework assignment!}
+ \todo[inline]{{\bf Review the workflow!} Write it up fast with the help of the class ... and then launch into homework assignment...}
 \begin{itemize}
 \item Datasets ... 
 \end{itemize}
@@ -519,7 +534,9 @@ Open with interaction notation and calculate an example with an additive versus 
 \newpage
 \section{Class 6} 
 
-Latent parameter examples?\\
+
+Covariance model for phylogeny\\
+Latent parameter examples: Do trait model (simplified)\\
 Qualitative data (elongated fish example) -- could briefly introduce MXTURE models here, as you could use the shapes as the way to possible define different groups, where each group gets a different body-mass to length relationship. 
 
 \end{document}

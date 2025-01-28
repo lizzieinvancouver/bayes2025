@@ -92,6 +92,8 @@ spslopespc <- spslopes[, which(sort(unique(dcov$species)) %in% pcspp)]
 par(mfrow=c(1,2))
 hist(rowMeans(spslopespp), main="", xlab="1ary producers")
 hist(rowMeans(spslopespc), main="", xlab="1ary consumers")
+quantile(rowMeans(spslopespp), c(0.1, 0.9))
+quantile(rowMeans(spslopespc), c(0.1, 0.9))
 
 # grep Stan output RStan
 # Starter code, not finished for this output!

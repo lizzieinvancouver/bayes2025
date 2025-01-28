@@ -508,7 +508,7 @@ Complete pooling: $\sigma_{alpha} \rightarrow 0$\\
 \subsection{Crossed versus nested} % We did not get to this, see next class
 
 \subsection{Other stuff}
-- Reviewed non-centered parameterization briefly ... 
+Reviewed non-centered parameterization briefly ... 
 
 \subsection{Review the homework assignment!}
  \todo[inline]{{\bf Review the workflow!} Write it up fast with the help of the class ... and then launch into homework assignment...}
@@ -525,15 +525,56 @@ Hyperparameters -- model parameters without group level subscripts (the $\mu$ an
 \newpage
 \section{Class 5} 
 
-Manipulating posteriors, maybe also forecasting, quantiles etc..
+{\bf Review the workflow (board) and ask how homework went ... } Who did prior checks? Who did retrodictive checks?
 
-Open with interaction notation and calculate an example with an additive versus subadditive effect (to get them thinking about how these equations work). 
+ \todo[inline]{10-20 minutes to review homework with your dataset group!}
+
+\emph{Most of this is on PAPER!} 
+
+It goes:
+\begin{enumerate}
+\item Wrap up hierarchical 
+\begin{enumerate}
+\item Review pooling 
+\item Crossed effects
+\item Nested effects
+\item Then code: hierarchicalday2.R
+\end{enumerate}
+\item Manipulating posteriors..
+\end{enumerate}
+
+
+To discuss at the end if time allows:
+\begin{itemize}
+\item Quantiles etc.
+\item Forecasting with posteriors ... (example where I have continuous temperature data and want to forecast more warming)
+\item Counterfactual -- we saw this, but what if we SAW that (and strong recommendation to read Gelman and Hill if you want to do causal inference maybe) 
+\begin{itemize}
+\item Example from Deirdre's paper (last figure of Loughan et al. 2024)
+\item Example in a medical study with covariates ... (this gets at: The Fundamental Problem of Causal Inference is that it is impossible to observe the causal effect on a single unit.)
+\end{itemize}
+\item Extracting posteriors for other models -- BAD idea! But if you do it, keep your iterations together.
+\end{itemize}
+
+
 
 %%%%%%%%%%%%
 %%%%%%%%%%%%
 \newpage
 \section{Class 6} 
 
+% To do for this class ...
+\iffalse
+- PREP Retrodictive check code for Deirdre data -- no grouping model (RStan), do retrodictive, then add grouping and try again (OR use the workflow example from Heather's model!)
+- Prep math from phylo model
+- Prep math from simplified trait model
+- Prep math for mixture (use U Toronto) notation ... `unsupervised learning'
+\fi
+
+ \todo[inline]{Review workflow on the board}
+
+
+\subsection{Extensions ... a few examples}
 
 Covariance model for phylogeny\\
 Latent parameter examples: Do trait model (simplified)\\

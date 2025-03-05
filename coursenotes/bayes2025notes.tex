@@ -368,6 +368,8 @@ THEN: mention Stan and what it does conceptually. See page 247 of \emph{Statisti
 
 Then spend a while looking at: \url{https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=banana}
 
+Mention: Multiple chains. 
+
 (Maybe mention `hill-climbing' -- which is what this is in some ways.)
 
 MENTION: Warmup and total iterations needed ... 
@@ -392,11 +394,11 @@ A few notes on divergences:
 The three basic ones!
 \begin{enumerate}
 \item Rhat -- compare variance with a chain to variance across chains
-\item $n_{effective}$ -- aim for 10\% of your total iterations 
+\item $n_{effective}$ -- aim for 10\% of your total iterations (students also asked about bulk ESS and tail ESS) % This is just what it sounds ESS (effective sample size) in bulk of posterior versus tails of posterior
 \item msce -- Markov Chain SE -- I never use this as I have never seen it be uniquely helpful
 \end{enumerate}
 
-And ... Divergences -- pairs plots -- LOOK up \verb|ncp_needed.png| And discuss.
+And ... Divergences -- pairs plots -- LOOK up \verb|ncp_needed.png| And discuss. % I have a written note here on fake vs. real data ... but not sure why
 
 Go through ShinyStan using \verb|diagnostiscsday.R| 
 
@@ -533,19 +535,22 @@ Hyperparameters -- model parameters without group level subscripts (the $\mu$ an
 
 It goes:
 \begin{enumerate}
-\item Wrap up hierarchical 
+\item Wrap up hierarchical  See  \verb|Class5_p1_2025Jan27_CrossedNested.pdf| 
+
 \begin{enumerate}
 \item Review pooling 
 \item Crossed effects
 \item Nested effects
 \item Then code: hierarchicalday2.R
 \end{enumerate}
-\item Manipulating posteriors..
+\item Manipulating posteriors... See  \verb|Class5_p2_2025Jan27_ManipPosteriors.pdf| 
 \end{enumerate}
 
+ \todo[inline]{In 2025, I did not even finish manipulating posteriors in this class!} 
 
 To discuss at the end if time allows:
 \begin{itemize}
+\item Go back to workflow and compare retrodictive checks to checking your model (step 2) and how they differ and WHY we do each. 
 \item Quantiles etc.
 \item Forecasting with posteriors ... (example where I have continuous temperature data and want to forecast more warming)
 \item Counterfactual -- we saw this, but what if we SAW that (and strong recommendation to read Gelman and Hill if you want to do causal inference maybe) 
@@ -563,6 +568,21 @@ To discuss at the end if time allows:
 \newpage
 \section{Class 6} 
 
+{\bf Transcribed (5 Mar 2025) paper notes for this class}\\
+
+\begin{enumerate}
+\item Manipulating posteriors still...
+\begin{enumerate}
+\item I think this class started with rapping up manipulating posteriors. See some part of \verb|Class5_p2_2025Jan27_ManipPosteriors.pdf| 
+\item Then it should have been 10 minutes of coding related to this.
+\item Then discussing WHY to do this (as a type of check on your model and you must add important grouping factors).
+\item  The. covered `To discuss at the end if time allows' from class 5.Then ... 
+\end{enumerate}
+\item Retro checks!  See \verb|Class6_p1_2025Jan28_RetrodictiveChecks| which worked semi-well in that I added actual numbers to board and I think that helped students. 
+\item Followed by a 30 minute tour de force of extending models (which people seemed to like), see \verb|Class6_p2_2025Jan28_MixturesEtc.pdf|
+ \end{enumerate}
+
+ 
 % To do for this class ...
 \iffalse
 - PREP Retrodictive check code for Deirdre data -- no grouping model (RStan), do retrodictive, then add grouping and try again (OR use the workflow example from Heather's model!)

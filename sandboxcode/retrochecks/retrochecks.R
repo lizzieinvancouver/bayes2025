@@ -47,7 +47,7 @@ Nreal <- nrow(rawlong.tot2)
 yreal <- rawlong.tot2$phenovalue
 
 
-# First, plot the real data used in the model
+# First, we'll plot the real data used in the model
 # pdf("graphs/realdata_formodel.pdf", height=4, width=6)
 par(mar=c(3,3,1,1), mgp=c(1.5,.5,0), tck=-.01)
 plot(range(year), range(yreal), type="n", xlab="Year",
@@ -59,10 +59,12 @@ hist(yreal, xlab="Day of year", main="Real data")
 # dev.off()
 
 # What does a similar plot look like using the model output?
+# Let's grab the model output and do a really simple example using ...
+# just the mean values of the posteriors
 syncmodelhispost <- extract(syncmodelhis) 
 # hist(syncmodelhispost$mu_b, xlab="Change per year")
 
-# extract means for now (other ways to extract the mean)
+# extract means for now 
 sigma_y <- mean(syncmodelhispost$sigma_y) 
 sigma_a <- mean(syncmodelhispost$sigma_a) 
 sigma_b <- mean(syncmodelhispost$sigma_b) 
@@ -81,16 +83,19 @@ for (n in 1:N){
 }
 y <- rnorm(N, ypred, sigma_y)
 
-pdf("graphs/onepredictivecheck.pdf", height=4, width=6)
+#pdf("graphs/onepredictivecheck.pdf", height=4, width=8)
+par(mfrow=c(1,3))
 par(mar=c(3,3,1,1), mgp=c(1.5,.5,0), tck=-.01)
 plot(range(year), range(y), type="n", xlab="Year", ylab="Day of year",
     bty="l", main="Data from posterior means")
 for (j in 1:Nspp)
   lines(year[species==j], y[species==j])
 hist(y, xlab="Day of year", main="Data from posterior means")
-dev.off()
+hist(yreal, xlab="Day of year", main="Real data")
+# dev.off()
 
 
+# The below is comparing the time-series, and prints directly to PDF
 pdf("graphs/rawvsonepredictivecheck.pdf", height=8, width=6)
 par(mfrow=c(2,1))
 par(mar=c(3,3,1,1), mgp=c(1.5,.5,0), tck=-.01)
@@ -105,36 +110,64 @@ for (j in 1:Nspp)
    lines(year[species==j], y[species==j], col="plum4")
 dev.off()
 
-# Okay, but that's just one new draw ... PPCs should be done with many draws...
+# Okay, but that's just one new draw and it's from the mean values ... 
+# PPCs should be done with many draws from the posterior 
 # But then you need to decide on what summary statistics matter because you cannot just look at each plot
 # Below I do: SD of y (using the means, I should also consider using other draws of the posterior)
 
 # Create the data using new a and b for each of the species, simshere times
 simshere <- 1000
+# Randomly sample the iterations (we have 4000 here).
+iterations <- sample(1:4000, simshere, replace = FALSE)
+# Create an empty matrix to get the resulting output 
 y.sd100 <- matrix(0, ncol=simshere, nrow=Nspp)
+# For this version, let's use the species-level intercepts and slopes (e.g., syncmodelhispost[["b"]]) ...
 for (i in 1:simshere){
+    iterhere <- iterations[i]
     for (n in 1:N){
         s <- species[n]
-        ypred[n] <- a[s] + b[s]*year[n] 
+        ypred[n] <- syncmodelhispost[["a"]][iterhere,s]+ syncmodelhispost[["b"]][iterhere,s]*year[n] 
     }
-  y <- rnorm(N, ypred, sigma_y)
+  y <- rnorm(N, ypred, syncmodelhispost[["sigma_y"]][iterhere])
   y.df <- as.data.frame(cbind(y, species))
   y.sd <- aggregate(y.df["y"], y.df["species"], FUN=sd)
   y.sd100[,i] <- y.sd[,2] 
 }
 
+
+
+# For this version, let's draw a new collection of species from mu_a and mu_b, using the full posteriors
+# Also, I use $ to index the list here instead of [[]]
+y.sd100.muab <- matrix(0, ncol=simshere, nrow=Nspp)
+for (i in 1:simshere){
+    iterhere <- iterations[i]
+    a <- rnorm(Nspp, mean=syncmodelhispost$mu_a[iterhere], sd=syncmodelhispost$sigma_a[iterhere])
+    b <- rnorm(Nspp, mean=syncmodelhispost$mu_b[iterhere], sd=syncmodelhispost$sigma_b[iterhere])
+    for (n in 1:N){
+        s <- species[n]
+        ypred[n] <- a[s] + b[s]*year[n]
+    }
+  y <- rnorm(N, ypred, syncmodelhispost[["sigma_y"]][iterhere])
+  y.df <- as.data.frame(cbind(y, species))
+  y.sd <- aggregate(y.df["y"], y.df["species"], FUN=sd)
+  y.sd100.muab[,i] <- y.sd[,2] 
+}
+
+
 # ... and here's the real data, includes studyid -- which we discussed adding to model
-# real.sd <- aggregate(rawlong.nodups["phenovalue"], rawlong.nodups[c("studyid", "spp")], FUN=sd)
 real.sd <- aggregate(rawlong.tot2["phenovalue"], rawlong.tot2[c("studyid", "species")],
     FUN=sd)
 
-par(mfrow=c(1,1))
-pdf("graphs/retroSDsync.pdf", height=7, width=6)
-hist(colMeans(y.sd100), col="lightblue", breaks=20, xlim=c(10,14), 
-    main="",
+par(mfrow=c(1,2))
+par(mar=c(5,3,1,1), mgp=c(3,.5,0), tck=-.01)
+hist(colMeans(y.sd100), col="lightblue", breaks=20, xlim=c(10,15), 
+    main="Using species-level posteriors",
     xlab="Mean SD of response from 1000 sim. datasets (light blue) \n versus empirical data (dark blue line)")
 abline(v = mean(real.sd$phenovalue), col = "darkblue", lwd = 2)
-dev.off()
+hist(colMeans(y.sd100.muab), col="lightblue", breaks=20, xlim=c(10,15), 
+    main="Drawing new species from posteriors",
+    xlab="Mean SD of response from 1000 sim. datasets (light blue) \n versus empirical data (dark blue line)")
+abline(v = mean(real.sd$phenovalue), col = "darkblue", lwd = 2)
 
 
 ##

@@ -1,5 +1,9 @@
 # Day to day ....
 
+I used this to start work on organizing the class in 2025, but the actual notes I used day-to-day ended up in bayes2025notes and I stopped using this much once the course got going (I didn't even compiled the html after 4 December!).
+
+This remains a good place to organize and plan though (I think). 
+
 ## Need to cover ...
 - Don't use bar charts
 - What is the posterior

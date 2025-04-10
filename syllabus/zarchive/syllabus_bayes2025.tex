@@ -1,0 +1,164 @@
+% \&latex
+
+\documentclass[11pt]{article}
+\usepackage{hyperref}
+
+\oddsidemargin 0.0in 
+\evensidemargin 0.0in 
+\topmargin -0.5in 
+\footskip 0.5in 
+\textheight 9.0in 
+\textwidth 6.0in 
+\renewcommand{\baselinestretch}{1.20}
+\special{papersize=8.5in,11in}
+%\pagestyle{empty}
+
+\begin{document} 
+\begin{center} {\large \textbf{Hierarchical model building \\ with Bayesian inference --- Winter 2025}}\\ [10pt] % 507C 202
+3-week intensive: Tuesdays and Wednesdays (14 -29 Jan): 13:30-17:00 \\ % 2 x 3.5 hours per week (7 hours total per week) for 3 weeks: 21 hours
+Tuesdays in \href{https://learningspaces.ubc.ca/classrooms/buch-b304/}{BUCH B304} \& Wednesdays in \href{https://learningspaces.ubc.ca/classrooms/ceme-1206/}{CEME 1206} \\
+% After: Tuesdays 13:30-15:00 starting 11 February  -- BRC 303 \\ % https://avehtari.github.io/ROS-Examples/index.html
+Professor: Elizabeth Wolkovich (e.wolkovich@ubc.ca) \\
+\end{center} 
+\emph{Overview:} Keep an eye out for an updated (and hyperlinked) syllabus on the GitHub repo. 
+\renewcommand{\baselinestretch}{1.10}
+% 5 August 2024: Some notes in red notebook!
+\begin{center}
+\begin{tabular}{p{2cm} p{6.5cm}  p{5.5cm}  }
+   \textbf{Date}
+   & \textbf{Topics}
+      & \textbf{Activities} \\ 
+\hline \hline
+Tu Jan 14  & What is Bayesian; workflow overview  & Simulating data     \\ 
+We Jan 15  & Priors &  Fitting models to simulated data       \\ % Homework assigned
+Tu Jan 21  & Understanding model output & Manipulating posteriors              \\ % Simulated data homework due
+We Jan 22  & Retrodictive checks &  Retrodictive checks    \\  % Homework assigned
+Tu Jan 28  & Multi-level models (`random effects') & Simulate hierarchical data   \\ %  Full workflow due
+We Jan 29  & Forecasting from hierarchical models &  TBD      \\ 
+\iffalse
+Tu Feb 4 & Projects/Concepts &                \\ 
+Tu Feb 11 & Projects/Concepts &                \\ 
+\sout{Tu Feb 17} & Spring break &                \\ 
+Tu Feb 25 & Projects/Concepts &               \\ 
+Tu Mar 4 & Projects/Concepts &               \\ 
+Tu Mar 11 & Projects/Concepts &                \\ 
+Tu Mar 18 & Projects/Concepts &               \\ 
+Tu Mar 25 & Projects/Concepts &               \\ 
+Tu Apr 1 & Projects/Concepts &               \\ 
+Tu Apr 8 & Projects/Concepts &                \\ 
+\fi
+\hline
+\end{tabular}
+\end{center}
+\vspace{4pt}
+
+% Reproducibility `crisis'  and discuss syllabus .. Loken & Gelman 2017; read at home: Hasley \emph{et al.} 2015
+% https://www.youtube.com/watch?v=fc1hkFC2c1E 
+% Multilevel models:  \href{https://www.youtube.com/watch?v=ObS1hkOxyPA}{Video}
+
+%\footnotetext[1]{Goober.} 
+% MCMC MCMC  and BDA3: Ch 11-12  
+% Mixed models in ARM: Ch 11-15 (pp 237-342) most important chapters are 11-12 (pp 237-278) Chapter 13 (279-299) is on varying slopes, non-nested and other complexities, Chapter 14 is multi-level logistic (301-323)
+% Statistical rethinking ... Chapter 8 (old edition): MCMC
+
+\begin{large}
+{\raggedright \textbf{Design of course --}}
+\end{large}
+ This is a three-week intensive designed to walk you through one version of a modern statistical workflow (basically following this: \url{https://arxiv.org/abs/2408.02603}), using Bayesian inference. All the examples will be built around basic linear regression (with the option to try other approaches if you want) and will use R. You should be comfortable using R for this course.  You should have some familiarity with basic linear regression, though how much training in statistics you need is not clear. Ideally, you will have learned basic through conditional probability at some point and not be too afraid of basic math equations, but you can probably brush up on these enough as the course goes along if you are motivated. The course is based around in-class learning and homework. I will teach from the board and coding in class. You'll need to be able to take notes without given slides (there are no planned course slides). \\
+
+\begin{large}
+{\raggedright \textbf{Course materials: Sample datasets --}}
+\end{large}
+Some homework will involve using a sample dataset. I'll provide a set to choose from on the \href{https://github.com/temporalecologylab/bayes2025homework}{GitHub repo}.\\
+
+\begin{large}
+{\raggedright \textbf{Course materials: Readings --}}
+\end{large}
+There is no textbook, but I can refer you to two textbooks that cover most of the material in the way I teach it: \emph{Regression and Other Stories} (ROS) by Gelman, Hill \& Vehtari (\href{https://avehtari.github.io/ROS-Examples/}{more info here, including ROS online PDF}) and---for multi-level modeling---\emph{Data Analysis Using Regression and Multilevel/Hierarchical Models} by Gelman \& Hill \href{http://www.stat.columbia.edu/~gelman/arm/}{(more info here)}; note that I refer to this book as {\bf ARM} or Gelman \& Hill (much of the first half of ARM is in ROS). \\
+
+\noindent I may recommend some chapters from \emph{Statistical Rethinking} (SR) by MacElreath \href{http://xcelab.net/rm/statistical-rethinking/}{(more info here)}; in particular I like the chapter that explains MCMC. \emph{Statistical Rethinking} is a great book to read and I highly encourage you to read it if you have time; I have found it less ideal to teach from or use as a reference. Finally, \emph{Bayesian Data Analysis} (which I call `BDA'), sometimes called the `Bible' for Bayesian stats has a lot in it and has several editions (BDA3 means the third edition).  \\ % \emph{The Statistical Sleuth} by Ramsey \& Schafer \href{http://www.statisticalsleuth.com/}{(more info here)}.
+% https://statmodeling.stat.columbia.edu/2022/01/27/regression-and-other-stories-free-pdf/
+
+\begin{large} 
+{\raggedright \textbf{Office hours --}}
+\end{large}
+Catch me after class if you need to discuss something.\\
+
+\begin{large} 
+{\raggedright \textbf{Email --}}
+\end{large}
+I check email once or twice a day between 1pm and 6pm (weekdays only). Please plan accordingly.\\
+
+\begin{large} 
+{\raggedright \textbf{Missing classes --}}
+\end{large}
+You can miss up to one class without it impacting your grade. Note that we will cover a lot in each class and you are responsible for catching up on what you miss. Since this is an intensive course, if you miss two classes (one third of the course) you cannot complete the course for credit. \\
+
+\begin{large} 
+{\raggedright \textbf{University Policies --}}
+\end{large}
+UBC provides resources to support student learning and to maintain healthy lifestyles but recognizes that sometimes crises arise and so there are additional resources to access including those for survivors of sexual violence. UBC values respect for the person and ideas of all members of the academic community. Harassment and discrimination are not tolerated nor is suppression of academic freedom. UBC provides appropriate accommodation for students with disabilities and for religious observances. UBC values academic honesty and students are expected to acknowledge the ideas generated by others and to uphold the highest academic standards in all of their actions. Details of the policies and how to access support are available \href {https://senate.ubc.ca/vancouver/policies-resources-support-student-success/}{here}.\\
+
+\begin{large} 
+{\raggedright \textbf{Grading}}
+\end{large}
+
+\begin{tabular}{lcr}
+& & \\ [-12pt]
+In-class participation & \hspace{14pt} 60 points\\ 
+Homework & \hspace{14pt} 40 points \\
+Total & \hspace{14pt} 100 points
+\end{tabular}
+
+\end{document}
+
+
+\begin{large} 
+{\raggedright \textbf{What is this whole video report thing?}}
+\end{large} You have to watch a video and report on it in-class that week (just like the reading you should know what was covered and ask questions \emph{in-class} as needed). The videos are generally hyperlinked to `Video report' in the online PDF of the syllabus. I will also aim to post them on the Canvas site, but to repeat: the videos are generally hyperlinked to `Video report' in the online PDF of the syllabus. \\
+
+\noindent {\bf What's due in each class?} 
+\vspace{1pt}
+
+
+\vspace{6pt}
+\vspace{18pt}
+\renewcommand{\baselinestretch}{1.20}
+
+\renewcommand{\baselinestretch}{1.10}
+\begin{center}
+\begin{tabular}{p{4cm}  p{8cm} p{3cm}}
+\textbf{Topic}
+     & \textbf{Tasks (in addition to your book reading!)}
+     & \textbf{Book problems}\\ 
+\hline \hline
+Reproducibility `crisis' &  In-class reading & \\\hline % and discuss syllabus
+Why learn statistics (and coding)? & Bring your laptop and vague project ideas to class! \href{https://www.youtube.com/watch?v=fc1hkFC2c1E}{Video report 1}, \href{https://www.youtube.com/watch?v=rUwZriT-bRs}{Video report 2}; finish p-value readings & 2.7: 1-4; 4.5: 4 \\\hline 
+Linear regression basics & \href{https://www.youtube.com/watch?v=iiFIzM4tU_M}{Video report}; survey & Example \& ARM: 3.9: 4; Bonus: 7.10: 2\\\hline
+Student project discussion & Short talk on your possible project & \\\hline 
+Linear regression plus & Stats in the news & 8.10: 2; 9.9: 4\\\hline
+Generalized linear regression &   & 10.10: 1\\\hline
+Design \& sample sizes & Stats in the news & 13.6: 3; 14.8: 2\\\hline
+Understanding your model &  & PPC problem (see Canvas) \\\hline % me away?
+Causal inference  & Causal inference in the news & ARM: 9.10: 1\\\hline 
+Catch-up on topics; review & Project check-in & \\\hline 
+Multilevel models & \href{https://www.youtube.com/watch?v=ObS1hkOxyPA}{Video report} & \\\hline
+\emph{Thanksgiving break}  & Celebrate traditional American holiday in a manner of your choosing & \\\hline
+Final presentations!  &  Final project is due!\\\hline
+\hline
+\end{tabular}
+\end{center}
+\vspace{2ex}
+
+\begin{large} 
+{\raggedright \textbf{Where do I find the data/code/etc. from the book?}}
+\end{large} Info on the book (including the author's lectures, and the book's code) can be found at: \url{http://xcelab.net/rm/statistical-rethinking/}. To install the \verb|rethinking| package in R, you must install from git following the instructions here: \url{https://github.com/rmcelreath/rethinking}.\\
+
+\begin{large} 
+{\raggedright \textbf{What is this whole leader thing?}}
+\end{large} Most reading class periods will have a team of student leaders. This means the week you are leader you will be in charge of highlighting the main points of the reading. You can do this however you like: ask critical questions, go over an example you have developed, have the class do an interesting project or related active-learning method to drive home the main messages. Whatever you do, you will have up to {\bf 30 minutes of class time} and will be assessed based on: student engagement, showing a depth of knowledge in the area, how well you taught the take-home messages as well as how you defined them, and teamwork and showing that all members of your group participated. \\
+
+
+\begin{large} 
+{\raggedright \textbf{What is this whole stats in the news thing?}}
+\end{large} Find an interesting use of statistics in the popular literature (e.g., \emph{Globe \& Mail, New York Times}) and bring it to class with a plan to present it clearly in under two minutes to the class. \\

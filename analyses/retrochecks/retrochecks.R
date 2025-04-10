@@ -8,7 +8,7 @@ rm(list=ls())
 options(stringsAsFactors = FALSE)
 
 ## set working directory if you need to
-setwd("~/Documents/git/teaching/hotstats/hotstatsbayes/sandboxcode/retrochecks")
+setwd("~/Documents/git/teaching/hotstats/hotstatsbayes/analyses/hierarchical")
 
 ## flags
 # You must set to true and RUN the models once for setting this to FALSE to work
@@ -20,7 +20,7 @@ options(mc.cores = parallel::detectCores())
 
 
 # get the data
-rawlong.tot2 <- read.csv("input/rawlong.tot2.csv")
+rawlong.tot2 <- read.csv("..//input/rawlong.tot2.csv")
 
 # Formatting for R stan (several ways to do this, this is one)
 N <- nrow(rawlong.tot2)
@@ -37,7 +37,7 @@ save(syncmodelhis, file="output/syncmodelhis.Rdata")
 }
 
 if(!runmodels){
-load("output/syncmodelhis.Rdata")
+load("..//output/syncmodelhis.Rdata")
 }
 
 ################################################
@@ -97,7 +97,7 @@ hist(yreal, xlab="Day of year", main="Real data")
 
 
 # The below is comparing the time-series, and prints directly to PDF
-pdf("graphs/rawvsonepredictivecheck.pdf", height=8, width=6)
+pdf("..//graphs/rawvsonepredictivecheck.pdf", height=8, width=6)
 par(mfrow=c(2,1))
 par(mar=c(3,3,1,1), mgp=c(1.5,.5,0), tck=-.01)
 plot(range(year), range(yreal), type="n", xlab="Year",

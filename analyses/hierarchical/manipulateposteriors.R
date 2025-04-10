@@ -11,14 +11,14 @@ library(rstanarm)
 options(mc.cores = parallel::detectCores()) # use all my cores, go for it!
 
 if(length(grep("lizzie", getwd()) > 0)) {
-  setwd("~/Documents/git/teaching/hotstats/hotstatsbayes/sandboxcode/loughnan2024")
+  setwd("~/Documents/git/teaching/hotstats/hotstatsbayes/analyses/hierarchical")
 } else{
   setwd("/home/boomdittyboom")
 }
 
 # doy is day of year of the various phenological events
-d <- read.csv("input/phenologyData.csv")
-covariates1 <- read.csv("input/lifeHistoryData.csv")
+d <- read.csv("..//input/loughnan2024/phenologyData.csv")
+covariates1 <- read.csv("..//input/loughnan2024/lifeHistoryData.csv")
 
 # this should merge better! But this is enough for our example.
 dcov <- merge(d, covariates1, by.x=c("species", "phenophase"), 

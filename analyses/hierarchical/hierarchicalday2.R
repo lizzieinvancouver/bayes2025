@@ -18,12 +18,12 @@ options(mc.cores = parallel::detectCores()) # use all my cores, go for it!
 # Aim: You want to award an Olympic medal in figure skating to the best pair in the short program. 
 
 if(length(grep("lizzie", getwd()) > 0)) {
-  setwd("~/Documents/git/teaching/hotstats/hotstatsbayes/sandboxcode/figureskating")
+  setwd("~/Documents/git/teaching/hotstats/hotstatsbayes/analyses/hierarchical")
 } else{
   setwd("/home/boomdittyboom")
 }
 
-dat <- read.csv("input/OlympicGames_1932.csv")
+dat <- read.csv("..//input/OlympicGames_1932.csv")
 head(dat)
 
 prog <- subset(dat, criterion == "Program")
@@ -34,4 +34,4 @@ prog <- subset(dat, criterion == "Program")
 # Aim: You want to best estimate the change over time in phenology across all species.
 
 # doy is day of year of the various phenological events
-d <- read.csv("..//loughnan2024/input/phenologyData.csv")
+d <- read.csv("..//input/loughnan2024/phenologyData.csv")

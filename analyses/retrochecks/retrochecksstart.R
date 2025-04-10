@@ -6,7 +6,7 @@ rm(list=ls())
 options(stringsAsFactors = FALSE)
 
 ## set working directory if you need to
-setwd("~/Documents/git/teaching/hotstats/hotstatsbayes/sandboxcode/retrochecks")
+setwd("~/Documents/git/teaching/hotstats/hotstatsbayes/analyses/hierarchical")
 
 ## flags
 # You must set to true and RUN the models once for setting this to FALSE to work
@@ -18,7 +18,7 @@ options(mc.cores = parallel::detectCores())
 
 
 # get the data
-rawlong.tot2 <- read.csv("input/rawlong.tot2.csv")
+rawlong.tot2 <- read.csv("..//input/rawlong.tot2.csv")
 
 # Formatting for R stan (several ways to do this, this is one)
 N <- nrow(rawlong.tot2)
@@ -35,7 +35,7 @@ save(syncmodelhis, file="output/syncmodelhis.Rdata")
 }
 
 if(!runmodels){
-load("output/syncmodelhis.Rdata")
+load("../output/syncmodelhis.Rdata")
 }
 
 ################################################

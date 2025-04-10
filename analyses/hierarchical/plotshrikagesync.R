@@ -12,11 +12,11 @@ rm(list=ls())
 options(stringsAsFactors = FALSE)
 
 ## set working directory if you need to
-setwd("~/Documents/git/teaching/hotstats/hotstatsbayes/sandboxcode/hierarchical")
+setwd("~/Documents/git/teaching/hotstats/hotstatsbayes/analyses/hierarchical")
 
 ## flags
 # You must set to true and RUN the models once for setting this to FALSE to work
-runmodels <- TRUE
+runmodels <- FALSE
 
 ## libraries
 library(rstan)
@@ -25,7 +25,7 @@ options(mc.cores = parallel::detectCores())
 ##
 ## get the data and run the pp (partial pooling) model
 ## 
-rawlong.tot2 <- read.csv("input/rawlong.tot2.csv")
+rawlong.tot2 <- read.csv("..//input/rawlong.tot2.csv")
 
 # Formatting for R stan (several ways to do this, this is one)
 N <- nrow(rawlong.tot2)
@@ -42,7 +42,7 @@ save(syncmodelhis, file="output/syncmodelhis.Rdata")
 }
 
 if(!runmodels){
-load("output/syncmodelhis.Rdata")
+load("..//output/syncmodelhis.Rdata")
 }
 
 ##
@@ -91,7 +91,7 @@ df.gravity$slope[2] <- modhere[grep("mu_b", rownames(modhere)),1]
 df.gravity$model[2] <- "partial pooling (mu)"
 
 
-pdf(file.path("graphs/skrinkageplot.pdf"), width = 9, height = 6)
+pdf(file.path("..//graphs/skrinkageplot.pdf"), width = 9, height = 6)
 ggplot(df.pulled) + 
   aes(x = intercept, y = slope, color = model) + 
   geom_point(size = 2) + 

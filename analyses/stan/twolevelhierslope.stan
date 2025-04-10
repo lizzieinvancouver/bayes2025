@@ -1,21 +1,23 @@
 // Two-level (1 hierarchical grouping) `random' slope model
 // Does not have partial pooling on intercept, but fits unique intercepts to each species
 // adapted from synchrony repo (twolevelrandomslope2.stan) in February 2022
+// Updated for new version of Stan (2025!)
+
 
 data{
 int<lower=0> N; 	// number of total observations
 int<lower=0> Nspp; 	// number of species (grouping factor)
-int species[N]; 	// species identity, coded as int
+array[N] int species;	// species identity, coded as int
 vector[N] year; 	// year of data point (predictor for slope)
-real y[N]; 		// day of year of phenological event (response)
+array[N] real y; 		// day of year of phenological event (response)
 }
 
 parameters{	
 real mu_b;		// mean slope across species
 real<lower=0> sigma_b;	// variation of slope across species
 real<lower=0> sigma_y; 	// measurement error, noise etc. 
-real a[Nspp]; 		// the intercept for each species
-real b[Nspp]; 		// the slope for each species 
+vector[Nspp] a; 		//the intercept for each species
+vector[Nspp] b; 		//the slope for each species 
 
 }
 

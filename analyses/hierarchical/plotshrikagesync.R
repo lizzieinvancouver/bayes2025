@@ -19,6 +19,7 @@ setwd("~/Documents/git/teaching/hotstats/hotstatsbayes/analyses/hierarchical")
 runmodels <- FALSE
 
 ## libraries
+library(ggplot2)
 library(rstan)
 options(mc.cores = parallel::detectCores())
 
@@ -51,7 +52,7 @@ load("..//output/syncmodelhis.Rdata")
 d <- rawlong.tot2
 
 # Get the complete pooling model
-com.pool.mod <- lm(phenovalue~yr1981, data=d)
+com.pool.mod <- lm(phenovalue~yr1981, data=d) # = no species effect (all fitted together)
 spp <- sort(unique(d$species))
 
 # Set up some empty stuff to fill in
@@ -59,7 +60,7 @@ no.pool <- data.frame(species=rep(NA, length(spp)),
                  intercept=rep(NA, length(spp)), 
                  slope=rep(NA, length(spp)))
 with.pool <- no.pool
-df.gravity <- no.pool[2:3]
+df.gravity <- no.pool[2:3,1:2]
 with.pool$model <- "partial pooling"
 no.pool$model <- "no pooling"
 
@@ -67,7 +68,7 @@ no.pool$model <- "no pooling"
 for (sp in c(1:length(spp))){
     no.pool$species[sp] <- spp[sp]
     subby <- subset(d,  species==spp[sp])
-    lmfit <- lm(phenovalue~yr1981, data=subby)
+    lmfit <- lm(phenovalue~yr1981, data=subby) # = each species fitted separately
     no.pool$intercept[sp] <- coef(lmfit)["(Intercept)"]
     no.pool$slope[sp] <- coef(lmfit)["yr1981"]
     }
@@ -94,11 +95,11 @@ df.gravity$model[2] <- "partial pooling (mu)"
 pdf(file.path("..//graphs/skrinkageplot.pdf"), width = 9, height = 6)
 ggplot(df.pulled) + 
   aes(x = intercept, y = slope, color = model) + 
-  geom_point(size = 2) + 
-  geom_point(data = df.gravity, size = 5) + 
   # Draw an arrow connecting the observations between models
   geom_path(aes(group = as.character(species), color = NULL), 
             arrow = arrow(length = unit(.02, "npc"))) + 
+  geom_point(size = 2) + 
+  geom_point(data = df.gravity, size = 5) + 
   # Use ggrepel to jitter the labels away from the points
   ggrepel::geom_text_repel(
     aes(label = species, color = NULL), 

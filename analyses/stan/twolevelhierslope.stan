@@ -22,7 +22,7 @@ vector[Nspp] b; 		//the slope for each species
 }
 
 transformed parameters{
-real ypred[N];
+array[N] real ypred;
 for (i in 1:N){
 	ypred[i]=a[species[i]]+b[species[i]]*year[i];
 }	
